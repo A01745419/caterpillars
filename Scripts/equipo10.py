@@ -1,4 +1,4 @@
-from dagor import JuegoOrugas, JugadorOrugas, JugadorOrugasAleatorio
+from dagor import JuegoOrugas, JugadorOrugas, JugadorOrugasAleatorio, JugadorOrugasInteractivo
 
 class JugadorOrugasEquipo10(JugadorOrugas):
 
@@ -13,7 +13,7 @@ class JugadorOrugasEquipo10(JugadorOrugas):
         acumulado = 0
         for p in posibles:
             acumulado += self.heuristica(p, rango)
-            if acumulado > rango or acumulado < -2:
+            if acumulado > rango or acumulado < 1:
                 return acumulado
         return acumulado
     
@@ -22,7 +22,7 @@ class JugadorOrugasEquipo10(JugadorOrugas):
         puntos = 0
         rens = self.juego.renglones
         cols = self.juego.columnas
-        totaltiros = (rens * cols)//5
+        totaltiros = (rens * cols)
         mejortiro = posibles[0]
         for p in posibles:
             intento = self.heuristica(p, totaltiros)
@@ -34,6 +34,6 @@ class JugadorOrugasEquipo10(JugadorOrugas):
 if __name__ == '__main__':
     juego = JuegoOrugas(
         JugadorOrugasEquipo10('Equipo 10'),
-        JugadorOrugasInteractivo('RandomBoy'),
-        5, 8)
+        JugadorOrugasAleatorio('RandomBoy'),
+        10, 10)
     juego.inicia(veces=100, delta_max=2)
